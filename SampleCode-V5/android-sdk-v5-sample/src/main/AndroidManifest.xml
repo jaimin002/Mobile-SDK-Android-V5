@@ -3,45 +3,46 @@
     package="dji.sampleV5.aircraft">
 
     <!-- Sample permission requirement -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
-<!--    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />-->
-<!--    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />-->
-<!--    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />-->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /> -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- 自安装使用 -->
+    <!-- Self-install permission -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!-- Google Maps -->
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="${GMAP_API_KEY}" />
-
     <uses-feature
         android:name="android.hardware.usb.host"
-        android:required="false"/>
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.usb.accessory"
-        android:required="true"/>
+        android:required="true" />
 
     <application
-        android:name="dji.sampleV5.aircraft.DJIAircraftApplication"
+        android:name=".DJIAircraftApplication"
         android:allowBackup="true"
+        android:extractNativeLibs="true"
         android:icon="@mipmap/ic_main"
         android:label="@string/app_name_aircraft"
-        android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
-        android:extractNativeLibs="true"
+        android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 
         <meta-data
-            android:name="com.dji.sdk.API_KEY"
-            android:value="${API_KEY}"/>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${GMAP_API_KEY}" />
 
-        <!-- Maplibre Token-->
+        <meta-data
+            android:name="com.dji.sdk.API_KEY"
+            android:value="${API_KEY}" />
+
+        <!-- MapLibre Token -->
         <meta-data
             android:name="com.dji.mapkit.maplibre.apikey"
             android:value="${MAPLIBRE_TOKEN}" />
@@ -53,50 +54,61 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- Existing DJI launcher Activity -->
         <activity
-            android:name="dji.sampleV5.aircraft.DJIAircraftMainActivity"
-            android:theme="@style/full_screen_theme"
-            android:screenOrientation="landscape"
+            android:name=".DJIAircraftMainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="true">
-
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/full_screen_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".UsbAttachActivity"
-            android:theme="@style/translucent_theme"
-            android:exported="true">
+        <activity
+            android:name=".UsbAttachActivity"
+            android:exported="true"
+            android:theme="@style/translucent_theme">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
             </intent-filter>
-
             <meta-data
                 android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
                 android:resource="@xml/accessory_filter" />
         </activity>
 
-        <activity android:name="dji.v5.ux.sample.showcase.defaultlayout.DefaultLayoutActivity"
-            android:theme="@style/full_screen_theme"
-            android:screenOrientation="landscape"
+        <activity
+            android:name="dji.v5.ux.sample.showcase.defaultlayout.DefaultLayoutActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"/>
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/full_screen_theme" />
 
-        <activity android:name="dji.v5.ux.sample.showcase.widgetlist.WidgetsActivity"
-            android:theme="@style/full_screen_theme"
-            android:screenOrientation="landscape"
+        <activity
+            android:name="dji.v5.ux.sample.showcase.widgetlist.WidgetsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"/>
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/full_screen_theme" />
 
-        <activity android:name="dji.sampleV5.aircraft.AircraftTestingToolsActivity"
-            android:theme="@style/full_screen_theme"
-            android:screenOrientation="landscape"
+        <activity
+            android:name=".AircraftTestingToolsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"/>
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/full_screen_theme" />
+
+        <!-- Our warehouse inspection Activity -->
+        <activity
+            android:name=".warehouse.WarehouseInspectionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
+
 </manifest>
