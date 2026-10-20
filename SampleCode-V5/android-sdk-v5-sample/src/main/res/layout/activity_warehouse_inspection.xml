@@ -1,312 +1,615 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F6FA"
-    android:fillViewport="true">
+    android:background="@color/wh_bg_dark"
+    android:orientation="vertical"
+    android:padding="12dp"
+    tools:context=".warehouse.WarehouseInspectionActivity">
 
+    <!-- Top Header Bar -->
     <LinearLayout
+        android:id="@+id/headerBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
 
-        <!-- Header -->
+        <ImageButton
+            android:id="@+id/buttonBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_wh_back" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WAREHOUSE INSPECTION"
+                android:textColor="@color/wh_text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aisle 4B — Ground Control Station"
+                android:textColor="@color/wh_text_secondary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Aircraft Connection Status Chip -->
         <TextView
+            android:id="@+id/textConnectionStatusChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="WAREHOUSE OPERATIONS"
-            android:textColor="#64748B"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_wh_chip_disconnected"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:text="• NOT CONNECTED"
+            android:textColor="@color/wh_status_disconnected"
             android:textSize="12sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.12" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Inspection Dashboard"
-            android:textColor="#14213D"
-            android:textSize="26sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Monitor your inspection mission"
-            android:textColor="#64748B"
-            android:textSize="14sp" />
-
-        <!-- Connection status -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
-            android:elevation="2dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="#F59E0B" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Aircraft connection"
-                    android:textColor="#14213D"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textConnectionStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="Not connected"
-                    android:textColor="#B45309"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DEMO"
-                android:textColor="#475569"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Camera preview placeholder -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="LIVE CAMERA"
-            android:textColor="#14213D"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:layout_marginTop="12dp"
-            android:background="#14213D">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CAMERA PREVIEW"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Live video will appear here\nwhen a compatible aircraft is connected."
-                    android:textColor="#CBD5E1"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:layout_margin="12dp"
-                android:background="#334155"
-                android:padding="6dp"
-                android:text="NO SIGNAL"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-        </FrameLayout>
-
-        <!-- Telemetry -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Flight telemetry"
-            android:textColor="#14213D"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Sample values only — not live aircraft data"
-            android:textColor="#64748B"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:background="#FFFFFF"
-                android:elevation="1dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="BATTERY"
-                    android:textColor="#64748B"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textBattery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="-- %"
-                    android:textColor="#14213D"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1"
-                android:background="#FFFFFF"
-                android:elevation="1dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ALTITUDE"
-                    android:textColor="#64748B"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textAltitude"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="-- m"
-                    android:textColor="#14213D"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:background="#FFFFFF"
-                android:elevation="1dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SPEED"
-                    android:textColor="#64748B"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textSpeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="-- m/s"
-                    android:textColor="#14213D"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1"
-                android:background="#FFFFFF"
-                android:elevation="1dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="POSITION"
-                    android:textColor="#64748B"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textPosition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Unavailable"
-                    android:textColor="#14213D"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Inspection action -->
-        <Button
-            android:id="@+id/buttonStartInspection"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="#2563EB"
-            android:text="Start Warehouse Inspection"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/buttonSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:contentDescription="Settings"
+            android:src="@drawable/ic_wh_settings" />
 
     </LinearLayout>
-</ScrollView>
+
+    <!-- Main Dashboard Body (Scrollable for smaller screens/phones) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- LEFT COLUMN: Dominant Video Feed & Telemetry HUD -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1.3"
+                android:orientation="vertical">
+
+                <!-- Video Preview Container Frame -->
+                <FrameLayout
+                    android:id="@+id/videoStreamContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:minHeight="220dp"
+                    android:background="@drawable/bg_wh_video_container">
+
+                    <!-- Disconnected Feed Placeholder -->
+                    <LinearLayout
+                        android:id="@+id/layoutVideoDisconnected"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:contentDescription="No Feed"
+                            android:src="@drawable/ic_wh_signal_off" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="NO VIDEO FEED"
+                            android:textColor="@color/wh_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="Connect aircraft to initialize live camera stream"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- Top-Left Video HUD Overlay -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|start"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/bg_wh_hud_overlay"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp">
+
+                        <TextView
+                            android:id="@+id/textLiveBadge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="• NO FEED"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="RES: -- x --"
+                            android:textColor="@color/wh_text_secondary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="FPS: --"
+                            android:textColor="@color/wh_text_secondary"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <!-- Bottom-Right Video Mode Overlay -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/bg_wh_hud_overlay"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="MODE: INSPECTION"
+                        android:textColor="@color/wh_text_secondary"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <!-- Telemetry HUD Grid Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_wh_card"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <!-- Speed -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SPEED"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textTelemetrySpeed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="-- m/s"
+                            android:textColor="@color/wh_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/wh_card_border" />
+
+                    <!-- Altitude -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ALTITUDE"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textTelemetryAltitude"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="-- m"
+                            android:textColor="@color/wh_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/wh_card_border" />
+
+                    <!-- Battery -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="BATTERY"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textTelemetryBattery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="-- %"
+                            android:textColor="@color/wh_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/wh_card_border" />
+
+                    <!-- Signal Link -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SIGNAL"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textTelemetrySignal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="No Link"
+                            android:textColor="@color/wh_text_secondary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/wh_card_border" />
+
+                    <!-- GPS -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="GPS STATUS"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textTelemetryGps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="No Fix"
+                            android:textColor="@color/wh_text_secondary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- RIGHT COLUMN: Mission Controls & Reserved Flight Controls -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1.0"
+                android:orientation="vertical">
+
+                <!-- Inspection Mission Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_wh_card_elevated"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MISSION CONTROL"
+                        android:textColor="@color/wh_status_accent"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Status"
+                                android:textColor="@color/wh_text_muted"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/textInspectionStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Standby"
+                                android:textColor="@color/wh_text_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Inspected Bays"
+                                android:textColor="@color/wh_text_muted"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/textInspectedLocations"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 / 24"
+                                android:textColor="@color/wh_text_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Findings"
+                                android:textColor="@color/wh_text_muted"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/textFindingsCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 Issues"
+                                android:textColor="@color/wh_text_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Mission Action Buttons -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/buttonStartInspection"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_wh_btn_primary"
+                            android:text="Start Inspection"
+                            android:textAllCaps="false"
+                            android:textColor="@color/wh_text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/buttonViewFindings"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_wh_btn_secondary"
+                            android:text="View Findings"
+                            android:textAllCaps="false"
+                            android:textColor="@color/wh_text_primary"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Reserved Flight Controls Area -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_wh_card"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="FLIGHT CONTROLS"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DISABLED"
+                            android:textColor="@color/wh_status_disconnected"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/buttonTakeoff"
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_weight="1"
+                            android:alpha="0.5"
+                            android:background="@drawable/bg_wh_btn_secondary"
+                            android:enabled="false"
+                            android:text="Takeoff"
+                            android:textAllCaps="false"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="11sp" />
+
+                        <Button
+                            android:id="@+id/buttonRTH"
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:alpha="0.5"
+                            android:background="@drawable/bg_wh_btn_secondary"
+                            android:enabled="false"
+                            android:text="RTH"
+                            android:textAllCaps="false"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="11sp" />
+
+                        <Button
+                            android:id="@+id/buttonEmergencyStop"
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_weight="1"
+                            android:alpha="0.5"
+                            android:background="@drawable/bg_wh_btn_secondary"
+                            android:enabled="false"
+                            android:text="Stop"
+                            android:textAllCaps="false"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                    <!-- Directional D-Pad Joystick Placeholder -->
+                    <FrameLayout
+                        android:id="@+id/dpadContainer"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:alpha="0.4"
+                        android:background="@drawable/bg_wh_dpad_placeholder">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="JOYSTICK\nSTANDBY"
+                            android:gravity="center"
+                            android:textColor="@color/wh_text_muted"
+                            android:textSize="9sp"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

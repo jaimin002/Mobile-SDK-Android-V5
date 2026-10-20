@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Warehouse Dark Industrial Dashboard Palette -->
+    <color name="wh_bg_dark">#0B0F19</color>
+    <color name="wh_card_bg">#111827</color>
+    <color name="wh_card_bg_elevated">#1F2937</color>
+    <color name="wh_card_border">#374151</color>
+    <color name="wh_card_border_subtle">#1F2937</color>
+    <color name="wh_video_bg">#030712</color>
+
+    <color name="wh_text_primary">#F9FAFB</color>
+    <color name="wh_text_secondary">#9CA3AF</color>
+    <color name="wh_text_muted">#6B7280</color>
+
+    <color name="wh_status_connected">#10B981</color>
+    <color name="wh_status_disconnected">#EF4444</color>
+    <color name="wh_status_warning">#F59E0B</color>
+    <color name="wh_status_accent">#3B82F6</color>
+
+    <color name="wh_btn_primary">#2563EB</color>
+    <color name="wh_btn_primary_pressed">#1D4ED8</color>
+    <color name="wh_btn_secondary">#374151</color>
+    <color name="wh_btn_disabled">#1F2937</color>
+
+    <color name="wh_chip_bg_disconnected">#2B1215</color>
+    <color name="wh_chip_border_disconnected">#7F1D1D</color>
+    <color name="wh_hud_overlay">#CC0B0F19</color>
+</resources>
