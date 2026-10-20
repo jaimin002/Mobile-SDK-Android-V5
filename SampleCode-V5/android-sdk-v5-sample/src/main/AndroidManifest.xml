@@ -106,7 +106,10 @@
         <!-- Our warehouse inspection Activity -->
         <activity
             android:name=".warehouse.WarehouseInspectionActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/full_screen_theme"
             android:windowSoftInputMode="adjustResize" />
 
     </application>

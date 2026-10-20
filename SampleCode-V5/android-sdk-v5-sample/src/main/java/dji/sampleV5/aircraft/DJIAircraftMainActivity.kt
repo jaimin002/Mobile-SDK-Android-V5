@@ -1,3 +1,4 @@
+
 package dji.sampleV5.aircraft
 
 import dji.v5.common.utils.GeoidManager
@@ -12,7 +13,6 @@ import dji.v5.ux.sample.showcase.widgetlist.WidgetsActivity
  *
  * @author Hoker
  * @date 2022/2/14
- *
  * Copyright (c) 2022, DJI All Rights Reserved.
  */
 class DJIAircraftMainActivity : DJIMainActivity() {
@@ -24,6 +24,9 @@ class DJIAircraftMainActivity : DJIMainActivity() {
 
         enableDefaultLayout(DefaultLayoutActivity::class.java)
         enableWidgetList(WidgetsActivity::class.java)
+
+        // Enable navigation to the Warehouse Inspection screen
+        enableWarehouseInspection()
     }
 
     override fun prepareTestingToolsActivity() {
