@@ -102,6 +102,12 @@
                     android:minHeight="220dp"
                     android:background="@drawable/bg_wh_video_container">
 
+                    <!-- Camera Stream SurfaceView -->
+                    <SurfaceView
+                        android:id="@+id/surfaceViewCameraStream"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
                     <!-- Disconnected Feed Placeholder -->
                     <LinearLayout
                         android:id="@+id/layoutVideoDisconnected"

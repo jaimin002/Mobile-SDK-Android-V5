@@ -2,32 +2,107 @@ package dji.sampleV5.aircraft.warehouse
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Surface
+import android.view.SurfaceHolder
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import dji.sampleV5.aircraft.R
 import dji.sampleV5.aircraft.databinding.ActivityWarehouseInspectionBinding
+import dji.sdk.keyvalue.value.common.ComponentIndexType
 
 class WarehouseInspectionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWarehouseInspectionBinding
     private val viewModel: WarehouseInspectionViewModel by viewModels()
 
+    private var cameraSurface: Surface? = null
+    private var surfaceWidth = 0
+    private var surfaceHeight = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWarehouseInspectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.i("WarehouseInspection", "WarehouseInspectionActivity initialized with ViewBinding and ViewModel")
+        Log.i("WarehouseInspection", "WarehouseInspectionActivity initialized with ViewBinding and Camera Stream support")
 
         setupListeners()
+        setupCameraSurface()
         observeTelemetry()
+        observeVideoStream()
+    }
+
+    private fun setupCameraSurface() {
+        binding.surfaceViewCameraStream.holder.addCallback(object : SurfaceHolder.Callback {
+            override fun surfaceCreated(holder: SurfaceHolder) {
+                cameraSurface = holder.surface
+            }
+
+            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+                surfaceWidth = width
+                surfaceHeight = height
+                cameraSurface = holder.surface
+                bindSurfaceIfReady()
+            }
+
+            override fun surfaceDestroyed(holder: SurfaceHolder) {
+                unbindSurface()
+                cameraSurface = null
+                surfaceWidth = 0
+                surfaceHeight = 0
+            }
+        })
+    }
+
+    private fun bindSurfaceIfReady() {
+        val surface = cameraSurface
+        if ((surface != null) && surface.isValid && (surfaceWidth > 0) && (surfaceHeight > 0)) {
+            viewModel.putCameraStreamSurface(surface, surfaceWidth, surfaceHeight)
+        }
+    }
+
+    private fun unbindSurface() {
+        cameraSurface?.let { surface ->
+            viewModel.removeCameraStreamSurface(surface)
+            cameraSurface = null
+        }
     }
 
     private fun observeTelemetry() {
         viewModel.telemetryState.observe(this) { state ->
             updateTelemetryUi(state)
+        }
+    }
+
+    private fun observeVideoStream() {
+        viewModel.activeCameraIndex.observe(this) { cameraIndex ->
+            bindSurfaceIfReady()
+            updateVideoStreamUi(viewModel.isStreamReceiving.value ?: false, cameraIndex)
+        }
+
+        viewModel.isStreamReceiving.observe(this) { isReceiving ->
+            updateVideoStreamUi(isReceiving, viewModel.activeCameraIndex.value ?: ComponentIndexType.UNKNOWN)
+        }
+    }
+
+    private fun updateVideoStreamUi(isReceiving: Boolean, cameraIndex: ComponentIndexType) {
+        if (!isReceiving || cameraIndex == ComponentIndexType.UNKNOWN) {
+            // No live video stream payload received yet -> NO FEED UI
+            binding.layoutVideoDisconnected.visibility = View.VISIBLE
+            binding.textLiveBadge.apply {
+                text = "• NO FEED"
+                setTextColor(ContextCompat.getColor(this@WarehouseInspectionActivity, R.color.wh_text_muted))
+            }
+        } else {
+            // Live video payload frames genuinely receiving -> LIVE UI
+            binding.layoutVideoDisconnected.visibility = View.GONE
+            binding.textLiveBadge.apply {
+                text = "• LIVE (${cameraIndex.name})"
+                setTextColor(ContextCompat.getColor(this@WarehouseInspectionActivity, R.color.wh_status_connected))
+            }
         }
     }
 
@@ -119,6 +194,16 @@ class WarehouseInspectionActivity : AppCompatActivity() {
         binding.dpadContainer.setOnClickListener {
             showToast("Joystick controls disabled — aircraft disconnected.")
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unbindSurface()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unbindSurface()
     }
 
     private fun showToast(message: String) {
